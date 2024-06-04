@@ -1,0 +1,21 @@
+version: '3.5'
+
+services:
+  db:
+    image: mysql
+    container_name: test-db_work
+    volumes:
+      - test-db_work_volume:/var/lib/mysql
+      - ./local/db/local.sql:/docker-entrypoint-initdb.d/local.sql
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+
+volumes:
+  test-db_work_volume:
+    driver: local
+    name: db_work_volume
